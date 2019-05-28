@@ -29,19 +29,30 @@ class Dog
   end
 
   def self.find_by_name(name)
-      sql = <<-SQL
-      INSERT INTO dogs (name, breed) VALUES (?, ?)
+        sql = <<-SQL
+      SELECT *FROM dogs
+      WHERE name = ?
       SQL
+      row = DB[:conn].execute(sql, name)
+      self.new_from_db(row)
+  end
 
-        DB[:conn].execute(sql, name, breed)
-        @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs").flatten[0]
-        self
-      end
+  def save
+    sql = <<-SQL
+    INSERT INTO dogs (name, breed) VALUES (?, ?)
+    SQL
 
-    self.create(name:, breed:)
-      new_dog = Dog.new(name: name, breed: breed)
-      new_dog.save
+      DB[:conn].execute(sql, name, breed)
+      @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs").flatten[0]
+
     end
+
+  self.create(name:, breed:)
+    new_dog = Dog.new(name: name, breed: breed)
+    new_dog.save
+  end
+    
+  end    
 
     def update
       sql = <<-SQL
