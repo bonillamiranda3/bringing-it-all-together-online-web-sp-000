@@ -47,12 +47,10 @@ class Dog
 
     end
 
-  self.create(name:, breed:)
-    new_dog = Dog.new(name: name, breed: breed)
-    new_dog.save
-  end
-
-  end
+    def self.create(name:, breed:)
+      new_dog = Dog.new(name: name, breed: breed)
+      new_dog.save
+    end
 
     def update
       sql = <<-SQL
