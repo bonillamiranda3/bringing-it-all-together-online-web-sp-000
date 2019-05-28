@@ -51,8 +51,8 @@ class Dog
     new_dog = Dog.new(name: name, breed: breed)
     new_dog.save
   end
-    
-  end    
+
+  end
 
     def update
       sql = <<-SQL
