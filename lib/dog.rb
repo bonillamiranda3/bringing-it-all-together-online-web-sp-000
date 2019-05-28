@@ -6,11 +6,11 @@ class Dog
   def initialize(name:, breed:, id:, nil)
     @name = name
     @breed = breed
-    @id = id    
+    @id = id
   end
 
   def self.create_table
-    sql = <<-SQL  
+    sql = <<-SQL
     CREATE TABLE IF NOT EXISTS dogs (
         id INTEGER PRIMARY KEY,
         name TEXT,
@@ -49,7 +49,7 @@ class Dog
       SQL
       DB[:conn].execute(sql, self.name, self.breed, self.id)
     end
-    
+
     def self.find_by_id(id)
       sql = <<-SQL
       SELECT * FROM dogs
@@ -64,7 +64,7 @@ class Dog
       if !dog_row.empty
       dog = Dog.new(name: dog_row[1], breed: dog_row[2], id: dog_row[0])
     else
-      dog = Dog.create(name: dog_row[1], breed: dog_row[2])  
+      dog = Dog.create(name: dog_row[1], breed: dog_row[2])
     end
     dog
   end
